@@ -52,6 +52,8 @@ public class ProductEntity {
 	@Column(name = "product_last_update")
 	private Date productLastUpdate;
 
+	@Column(name = "Product_Is_Free_Shipping")
+	private Boolean productIsFreeShipping;
 	
 	/* Getters and Setters*/
 
@@ -141,6 +143,23 @@ public class ProductEntity {
 
 	public void setProductLastUpdate(Date productLastUpdate) {
 		this.productLastUpdate = productLastUpdate;
+	}
+
+	public Boolean getProductIsFreeShipping() {
+		return productIsFreeShipping;
+	}
+
+	public void setProductIsFreeShipping(Boolean productIsFreeShipping) {
+		this.productIsFreeShipping = productIsFreeShipping;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductEntity [productId=" + productId + ", pymeUserProfile=" + pymeUserProfile + ", categoryProduct="
+				+ categoryProduct + ", productName=" + productName + ", productDescription=" + productDescription
+				+ ", productImgUrl=" + productImgUrl + ", productSearchUrl=" + productSearchUrl + ", productUnitPrice="
+				+ productUnitPrice + ", productOffer=" + productOffer + ", productDateCreated=" + productDateCreated
+				+ ", productLastUpdate=" + productLastUpdate + "]";
 	}
 
 	

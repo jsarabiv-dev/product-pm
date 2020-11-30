@@ -54,7 +54,6 @@ public class ProductServiceImpls implements ProductService{
 
 	@Override
 	public List<ProductEntity> prueba() {
-		productDAO.prueba();
-		return null;
+		return productDAO.prueba();
 	}
 }

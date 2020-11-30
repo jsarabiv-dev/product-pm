@@ -30,6 +30,17 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
+	@GetMapping("/prueba")
+	public ResponseEntity<List<ProductEntity>>prueba(){
+	
+		List<ProductEntity> listProducts = productService.prueba();
+        if(listProducts.isEmpty()) {
+        	return new ResponseEntity<List<ProductEntity>>(listProducts, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<ProductEntity>>(listProducts, HttpStatus.OK);
+	}
+	
+	
 	@GetMapping("/find-all")
 	public ResponseEntity<List<ProductEntity>>findAll(){
 	
