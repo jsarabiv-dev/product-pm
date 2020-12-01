@@ -2,6 +2,7 @@ package com.pm.product.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "product")
@@ -28,7 +25,7 @@ public class ProductEntity {
 	@JoinColumn( name = "product_pymeprof_id" )
 	private PymeUserProfileEntity pymeUserProfile;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST) // Poder persistir en cascada libros con categorias nuevas
 	@JoinColumn(name ="product_catprod_id")
 	private CategoryProductEntity categoryProduct;
 	
@@ -173,6 +170,12 @@ public class ProductEntity {
 		this.productDateCreated = productDateCreated;
 		this.productLastUpdate = productLastUpdate;
 		this.productIsFreeShipping = productIsFreeShipping;
+	}
+	
+	
+
+	public ProductEntity() {
+		super();
 	}
 
 	@Override

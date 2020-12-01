@@ -1,7 +1,10 @@
 package com.pm.product.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "category_product")
@@ -21,8 +22,10 @@ public class CategoryProductEntity {
 	@Column(name = "catprod_id")
 	private Long catProd_Id;
 	
-	@OneToMany(mappedBy = "categoryProduct")
-	private Set<ProductEntity> products;
+	@OneToMany(mappedBy = "categoryProduct", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) 
+	private List<ProductEntity> products;
+	// Solo asumira una operacion de cascada para persistir y eliminar los productos
+	// Si creas una categoria nueva y le agregas libros y luego la persistes, se persistiran igualmente los libros
 	
 	@Column(name = "catprod_subcat_id")
 	private Integer catProd_SubCat_Id;
@@ -73,23 +76,31 @@ public class CategoryProductEntity {
 		this.searchUrl = searchUrl;
 	}
 
-	public Set<ProductEntity> getProducts() {
+	public List<ProductEntity> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<ProductEntity> products) {
+	public void setProducts(List<ProductEntity> products) {
 		this.products = products;
 	}
 
-	public CategoryProductEntity(Long catProd_Id, Set<ProductEntity> products, Integer catProd_SubCat_Id,
+	public void addProduct(ProductEntity product) {
+		product.setCategoryProduct(this);
+		this.products.add(product);
+	}
+	
+	public CategoryProductEntity(List<ProductEntity> products, Integer catProd_SubCat_Id,
 			String catProd_name, String icon, String searchUrl) {
 		super();
-		this.catProd_Id = catProd_Id;
-		this.products = products;
+		this.products = new ArrayList<ProductEntity>();
 		this.catProd_SubCat_Id = catProd_SubCat_Id;
 		this.catProd_name = catProd_name;
 		this.icon = icon;
 		this.searchUrl = searchUrl;
+	}
+
+	public CategoryProductEntity() {
+		super();
 	}
 
 	@Override

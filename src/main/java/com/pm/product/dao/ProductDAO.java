@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pm.product.model.CategoryProductEntity;
 import com.pm.product.model.ProductEntity;
@@ -36,6 +37,7 @@ public class ProductDAO {
 	@PersistenceContext
 	private EntityManager em;
 	
+	@Transactional
 	public List<ProductEntity> prueba() {
 		
 		/*
@@ -202,16 +204,26 @@ public class ProductDAO {
 	// === JPA Relaciones Complejas	===
 		
 		
-		em.getTransaction().begin();
+		
 	
 		//TypedQuery<CategoryProductEntity> consulta = em.createQuery("select c from CategoryProductEntity c", CategoryProductEntity.class);
-		CategoryProductEntity category = em.find(CategoryProductEntity.class, 2L);
-		PymeUserProfileEntity pyme = em.find(PymeUserProfileEntity.class, 2L);
+		CategoryProductEntity category = em.find(CategoryProductEntity.class, 14L);
+		CategoryProductEntity category2 = em.find(CategoryProductEntity.class,15L);
+//		PymeUserProfileEntity pyme = em.find(PymeUserProfileEntity.class, 2L);
+//		CategoryProductEntity c1 = new CategoryProductEntity(null, null, "Prueba persistir categoria por JPA3", "iconxd2", "SearchUrlxd2");
+//		CategoryProductEntity c2 = new CategoryProductEntity(null, null, "Prueba persistir categoria por JPA4", "iconxd2", "SearchUrlxd2");
+//		ProductEntity p1 = new ProductEntity(pyme, null, "p4", "Prueba para producto3", "url", "Search_url", 1f, 1f, new Date(), new Date(), false);
+//		ProductEntity p2 = new ProductEntity(pyme, null, "p5", "Prueba para producto4", "url", "Search_url", 1f, 1f, new Date(), new Date(), true);
+//		c1.addProduct(p1);
+//		c2.addProduct(p2);
+//		em.persist(p1);
+//		em.persist(p2);
 		
-		ProductEntity p1 = new ProductEntity(pyme, category, "p1", "Prueba para producto1", "url", "Search_url", 1f, 1f, new Date(), new Date(), false);
-		ProductEntity p2 = new ProductEntity(pyme, category, "p2", "Prueba para producto2", "url", "Search_url", 1f, 1f, new Date(), new Date(), true);
+		em.remove(category);
+		em.remove(category2);
+		//CategoryProductEntity cat = em.find(CategoryProductEntity.class, 12L);
 		
-		em.getTransaction().commit();
+		
 		
 		return null;
 		
