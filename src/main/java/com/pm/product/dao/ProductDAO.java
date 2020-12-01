@@ -2,6 +2,7 @@ package com.pm.product.dao;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,16 +16,23 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pm.product.model.CategoryProductEntity;
 import com.pm.product.model.ProductEntity;
+import com.pm.product.model.PymeUserProfileEntity;
 
 @Repository
 public class ProductDAO {
 	
 	private List<ProductEntity> products = new ArrayList<>();
 	
+	private List<CategoryProductEntity> categories = new ArrayList<>();
+	
 	@Autowired
 	private ProductRepository productRepository;
-	
+	@Autowired
+	private CategoryProductRepository categoryProductRepository;
+	@Autowired
+	private PymeUserProfileRepository pymeUserProfileRepository;
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -194,7 +202,18 @@ public class ProductDAO {
 	// === JPA Relaciones Complejas	===
 		
 		
+		em.getTransaction().begin();
+	
+		//TypedQuery<CategoryProductEntity> consulta = em.createQuery("select c from CategoryProductEntity c", CategoryProductEntity.class);
+		CategoryProductEntity category = em.find(CategoryProductEntity.class, 2L);
+		PymeUserProfileEntity pyme = em.find(PymeUserProfileEntity.class, 2L);
 		
+		ProductEntity p1 = new ProductEntity(pyme, category, "p1", "Prueba para producto1", "url", "Search_url", 1f, 1f, new Date(), new Date(), false);
+		ProductEntity p2 = new ProductEntity(pyme, category, "p2", "Prueba para producto2", "url", "Search_url", 1f, 1f, new Date(), new Date(), true);
+		
+		em.getTransaction().commit();
+		
+		return null;
 		
 		
 		

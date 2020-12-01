@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "product")
 public class ProductEntity {
@@ -150,6 +154,24 @@ public class ProductEntity {
 	}
 
 	public void setProductIsFreeShipping(Boolean productIsFreeShipping) {
+		this.productIsFreeShipping = productIsFreeShipping;
+	}
+
+	public ProductEntity(PymeUserProfileEntity pymeUserProfile, CategoryProductEntity categoryProduct,
+			String productName, String productDescription, String productImgUrl, String productSearchUrl,
+			Float productUnitPrice, Float productOffer, Date productDateCreated, Date productLastUpdate,
+			Boolean productIsFreeShipping) {
+		super();
+		this.pymeUserProfile = pymeUserProfile;
+		this.categoryProduct = categoryProduct;
+		this.productName = productName;
+		this.productDescription = productDescription;
+		this.productImgUrl = productImgUrl;
+		this.productSearchUrl = productSearchUrl;
+		this.productUnitPrice = productUnitPrice;
+		this.productOffer = productOffer;
+		this.productDateCreated = productDateCreated;
+		this.productLastUpdate = productLastUpdate;
 		this.productIsFreeShipping = productIsFreeShipping;
 	}
 

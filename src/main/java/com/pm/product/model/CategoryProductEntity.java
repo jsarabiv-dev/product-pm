@@ -1,11 +1,16 @@
 package com.pm.product.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "category_product")
@@ -15,6 +20,9 @@ public class CategoryProductEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "catprod_id")
 	private Long catProd_Id;
+	
+	@OneToMany(mappedBy = "categoryProduct")
+	private Set<ProductEntity> products;
 	
 	@Column(name = "catprod_subcat_id")
 	private Integer catProd_SubCat_Id;
@@ -30,7 +38,6 @@ public class CategoryProductEntity {
 	private String searchUrl;
 	
 	//TODO: Crear modo para obtener las categorias mas compradas
-	
 	
 	/* Getters and Setters*/
 
@@ -64,6 +71,32 @@ public class CategoryProductEntity {
 
 	public void setSearchUrl(String searchUrl) {
 		this.searchUrl = searchUrl;
+	}
+
+	public Set<ProductEntity> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<ProductEntity> products) {
+		this.products = products;
+	}
+
+	public CategoryProductEntity(Long catProd_Id, Set<ProductEntity> products, Integer catProd_SubCat_Id,
+			String catProd_name, String icon, String searchUrl) {
+		super();
+		this.catProd_Id = catProd_Id;
+		this.products = products;
+		this.catProd_SubCat_Id = catProd_SubCat_Id;
+		this.catProd_name = catProd_name;
+		this.icon = icon;
+		this.searchUrl = searchUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "CategoryProductEntity [catProd_Id=" + catProd_Id + ", products=" + products + ", catProd_SubCat_Id="
+				+ catProd_SubCat_Id + ", catProd_name=" + catProd_name + ", icon=" + icon + ", searchUrl=" + searchUrl
+				+ "]";
 	}
 
 
