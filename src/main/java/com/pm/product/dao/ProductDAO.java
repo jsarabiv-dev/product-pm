@@ -8,9 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -203,12 +206,9 @@ public class ProductDAO {
 		
 	// === JPA Relaciones Complejas	===
 		
-		
-		
-	
 		//TypedQuery<CategoryProductEntity> consulta = em.createQuery("select c from CategoryProductEntity c", CategoryProductEntity.class);
-		CategoryProductEntity category = em.find(CategoryProductEntity.class, 14L);
-		CategoryProductEntity category2 = em.find(CategoryProductEntity.class,15L);
+//		CategoryProductEntity category = em.find(CategoryProductEntity.class, 14L);
+//		CategoryProductEntity category2 = em.find(CategoryProductEntity.class,15L);
 //		PymeUserProfileEntity pyme = em.find(PymeUserProfileEntity.class, 2L);
 //		CategoryProductEntity c1 = new CategoryProductEntity(null, null, "Prueba persistir categoria por JPA3", "iconxd2", "SearchUrlxd2");
 //		CategoryProductEntity c2 = new CategoryProductEntity(null, null, "Prueba persistir categoria por JPA4", "iconxd2", "SearchUrlxd2");
@@ -219,23 +219,168 @@ public class ProductDAO {
 //		em.persist(p1);
 //		em.persist(p2);
 		
-		em.remove(category);
-		em.remove(category2);
+		//em.remove(category);
+		//em.remove(category2);
 		//CategoryProductEntity cat = em.find(CategoryProductEntity.class, 12L);
+		//return null;
+		
+		
+	// === JPA Count ===
+		
+		/*
+		TypedQuery<ProductEntity> consulta = em.createQuery("select p from ProductEntity p", ProductEntity.class);
+		
+		TypedQuery<Long> totalProd = em.createQuery("select COUNT(p) from ProductEntity p", Long.class);
+		
+		List<ProductEntity> prod = consulta.getResultList();
+		
+		System.out.printf("[+] Cantidad de productos en BD: %s \n",totalProd.getSingleResult().toString());
+		
+		prod.forEach( p ->{
+				System.out.println("[+] "+p.getProductName());
+				});
+		
+		return null;
+		*/
+		
+		
+	// === Native Querys ===
+		
+		/*
+		Query consulta = em.createNativeQuery("SELECT * FROM product");
+		
+		List<ProductEntity> prodList = consulta.getResultList();
+		prodList.forEach( p -> {
+			System.out.printf("[+] Producto Name: %s", p.getProductName());
+		});
+		return null;
+		*/
+		
+	// === Dynamic Querys ===
+
+		/*
+		String name = "Product Prueba";
+		String imgUrl = "";
+		String consulta = "SELECT p FROM ProductEntity p ";
+
+		if (name != "" || imgUrl != "") {
+			consulta+="WHERE ";
+		}
+		if (name != "") {
+			consulta+="p.productName=:name";
+		}
+		if (imgUrl != "") {
+			if (name != "") {
+				consulta+=" AND ";
+			}
+			consulta+="p.productImgUrl=:imgUrl";
+		}
+
+		System.out.println(consulta);
+		TypedQuery<ProductEntity> consulta1 = em.createQuery(consulta.toString(), ProductEntity.class);
+		
+		if (name != "") {
+			consulta1.setParameter("name", name);
+		}
+		if (imgUrl != "") {
+			consulta1.setParameter("imgUrl", imgUrl);
+		}
+		
+		List<ProductEntity> productList= consulta1.getResultList();
+		
+		productList.forEach(p -> {
+			System.out.printf("[+] Producto Name: %s", p.getProductName());
+		});
+		return null;
+		 */
+		
+		
+	// === JPA Criteria ===
+		
+		String name = "Product Prueba";
+		String imgUrl = "";
+		List<ProductEntity> productList= new ArrayList<>();
+		
+		// Constructor de criteria
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<ProductEntity> cq = cb.createQuery(ProductEntity.class);
+		// select p from ProductEntity p
+		Root<ProductEntity> productRaiz = cq.from(ProductEntity.class);
+		
+		List<Predicate> listPredicates = new ArrayList<>();
+		if (name != "") {
+			listPredicates.add(cb.equal(productRaiz.get("productName"), name));
+		}
+		if (imgUrl != "") {
+			listPredicates.add(cb.equal(productRaiz.get("productImgUrl"), imgUrl));
+		}
+		
+		// Seleccion, aplica where y combina los filtros equal que se han diseñado
+		cq.select(productRaiz).where(listPredicates.toArray(new Predicate[listPredicates.size()]));
+		
+		
+		productList = em.createQuery(cq).getResultList();
+		
+		imprimirList(productList);
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
 		return null;
 		
-		
-		
 	}
 	
 	
-	
-	
-	
+	public void  imprimirList(List<ProductEntity> list){
+		
+		list.forEach( p -> {
+			System.out.printf("[+] Product Name: %s || Product Id: %s", p.getProductName(), p.getProduct_Id().toString());
+		});
+		
+		
+	}
 
 }
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
