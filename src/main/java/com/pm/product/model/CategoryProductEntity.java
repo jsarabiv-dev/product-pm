@@ -7,11 +7,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "category_product")
@@ -23,6 +26,7 @@ public class CategoryProductEntity {
 	private Long catProd_Id;
 	
 	@OneToMany(mappedBy = "categoryProduct", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) 
+	@JsonIgnore
 	private List<ProductEntity> products;
 	// Solo asumira una operacion de cascada para persistir y eliminar los productos
 	// Si creas una categoria nueva y le agregas libros y luego la persistes, se persistiran igualmente los libros
@@ -109,6 +113,7 @@ public class CategoryProductEntity {
 				+ catProd_SubCat_Id + ", catProd_name=" + catProd_name + ", icon=" + icon + ", searchUrl=" + searchUrl
 				+ "]";
 	}
+
 
 
 	

@@ -25,8 +25,8 @@ import com.pm.product.model.ProductEntity;
 import com.pm.product.model.PymeUserProfileEntity;
 
 @Repository
-public class ProductDAO {
-	
+public class ProductDAOEjemplos {
+/*
 	private List<ProductEntity> products = new ArrayList<>();
 	
 	private List<CategoryProductEntity> categories = new ArrayList<>();
@@ -42,7 +42,7 @@ public class ProductDAO {
 	
 	@Transactional
 	public List<ProductEntity> prueba() {
-		
+	*/	
 		/*
 		// === Listar con EM === 
 		ProductEntity product = em.find(ProductEntity.class, 75L);
@@ -296,8 +296,8 @@ public class ProductDAO {
 		
 		
 	// === JPA Criteria ===
-		
-		String name = "Product Prueba";
+		/*
+		String name = "caf%";
 		String imgUrl = "";
 		List<ProductEntity> productList= new ArrayList<>();
 		
@@ -309,7 +309,8 @@ public class ProductDAO {
 		
 		List<Predicate> listPredicates = new ArrayList<>();
 		if (name != "") {
-			listPredicates.add(cb.equal(productRaiz.get("productName"), name));
+//			listPredicates.add(cb.equal(productRaiz.get("productName"), name));
+			listPredicates.add(cb.like(productRaiz.get("productName"), name));
 		}
 		if (imgUrl != "") {
 			listPredicates.add(cb.equal(productRaiz.get("productImgUrl"), imgUrl));
@@ -346,6 +347,7 @@ public class ProductDAO {
 		
 		
 	}
+*/
 
 }
 	

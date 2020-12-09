@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pm.product.dao.CategoryProductRepository;
+import com.pm.product.dao.repository.CategoryProductRepository;
 import com.pm.product.model.CategoryProductEntity;
 
 

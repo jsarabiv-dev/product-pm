@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "product")
@@ -25,7 +26,7 @@ public class ProductEntity {
 	@JoinColumn( name = "product_pymeprof_id" )
 	private PymeUserProfileEntity pymeUserProfile;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST) // Poder persistir en cascada libros con categorias nuevas
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name ="product_catprod_id")
 	private CategoryProductEntity categoryProduct;
 	
@@ -55,6 +56,12 @@ public class ProductEntity {
 
 	@Column(name = "Product_Is_Free_Shipping")
 	private Boolean productIsFreeShipping;
+	
+	@Transient
+	private Float precioCuota = 0f;
+	
+	@Transient
+	private int cuotas = 0;
 	
 	/* Getters and Setters*/
 
@@ -172,10 +179,17 @@ public class ProductEntity {
 		this.productIsFreeShipping = productIsFreeShipping;
 	}
 	
-	
-
 	public ProductEntity() {
 		super();
+	}
+
+	public void getPrecioCuota() {
+		this.cuotas = productUnitPrice> 800000f ? 10 : 6;
+		this.precioCuota = productUnitPrice / cuotas;
+	}
+
+	public void setPrecioCuota(Float precioCuota) {
+		this.precioCuota = precioCuota;
 	}
 
 	@Override
@@ -184,8 +198,10 @@ public class ProductEntity {
 				+ categoryProduct + ", productName=" + productName + ", productDescription=" + productDescription
 				+ ", productImgUrl=" + productImgUrl + ", productSearchUrl=" + productSearchUrl + ", productUnitPrice="
 				+ productUnitPrice + ", productOffer=" + productOffer + ", productDateCreated=" + productDateCreated
-				+ ", productLastUpdate=" + productLastUpdate + "]";
+				+ ", productLastUpdate=" + productLastUpdate + ", productIsFreeShipping=" + productIsFreeShipping
+				+ ", precioCuota=" + precioCuota + ", cuotas=" + cuotas + "]";
 	}
+
 
 	
 	

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pm.product.dao.ProductDAO;
-import com.pm.product.dao.ProductRepository;
+import com.pm.product.dao.ProductDAOImpl;
+import com.pm.product.dao.repository.ProductRepository;
 import com.pm.product.model.ProductEntity;
 
 
@@ -18,7 +18,7 @@ public class ProductServiceImpls implements ProductService{
 	ProductRepository productRepository;
 	
 	@Autowired
-	ProductDAO productDAO;
+	ProductDAOImpl productDAO;
 	
 	@Override
 	public List<ProductEntity> findAll() {
@@ -52,8 +52,10 @@ public class ProductServiceImpls implements ProductService{
 		return products;
 	}
 
+	
 	@Override
 	public List<ProductEntity> prueba() {
-		return productDAO.prueba();
+		return productDAO.getProductsWhitCriteria();
 	}
+	
 }
