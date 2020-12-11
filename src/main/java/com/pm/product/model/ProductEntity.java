@@ -183,13 +183,21 @@ public class ProductEntity {
 		super();
 	}
 
-	public void getPrecioCuota() {
-		this.cuotas = productUnitPrice> 800000f ? 10 : 6;
-		this.precioCuota = productUnitPrice / cuotas;
+
+	public Float getPrecioCuota() {
+		return precioCuota;
 	}
 
 	public void setPrecioCuota(Float precioCuota) {
 		this.precioCuota = precioCuota;
+	}
+
+	public int getCuotas() {
+		return cuotas;
+	}
+
+	public void setCuotas(int cuotas) {
+		this.cuotas = cuotas;
 	}
 
 	@Override

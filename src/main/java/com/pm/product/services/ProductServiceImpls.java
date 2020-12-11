@@ -20,6 +20,8 @@ public class ProductServiceImpls implements ProductService{
 	@Autowired
 	ProductDAOImpl productDAO;
 	
+	@Autowired
+	TransversalService transversalService;
 	@Override
 	public List<ProductEntity> findAll() {
 		return productRepository.findAll();
@@ -55,7 +57,8 @@ public class ProductServiceImpls implements ProductService{
 	
 	@Override
 	public List<ProductEntity> prueba() {
-		return productDAO.getProductsWhitCriteria();
+		
+		return transversalService.calculateFees(productRepository.findAll());
 	}
 	
 }
