@@ -1,5 +1,6 @@
 package com.pm.product.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,31 @@ public class ProductServiceImpls implements ProductService{
 	
 	@Autowired
 	TransversalService transversalService;
+	
+	
+	
 	@Override
 	public List<ProductEntity> findAll() {
-		return productRepository.findAll();
+		List<ProductEntity> listProducts = new ArrayList<>();
+		listProducts = productRepository.findAll();
+		listProducts = this.deleteCategoryRecursive(listProducts);
+		return transversalService.calculateFees(listProducts);
 	}
 	
 	@Override
 	public List<ProductEntity> getProductsOffertToWeek() {
-		return productRepository.getProductsOffertToWeek();
+		List<ProductEntity> listProducts = new ArrayList<>();
+		listProducts = productRepository.getProductsOffertToWeek();
+		listProducts = this.deleteCategoryRecursive(listProducts);
+		return transversalService.calculateFees(listProducts);
 	}
 
 	@Override
 	public ProductEntity findById(Long id) {
-		return productRepository.findById(id).orElse(null);
+		List<ProductEntity> listProducts = new ArrayList<>();
+		listProducts.add(productRepository.findById(id).orElse(null));
+		listProducts = this.deleteCategoryRecursive(listProducts);
+		return transversalService.calculateFees(listProducts).get(0);
 	}
 
 	@Override
@@ -49,16 +62,26 @@ public class ProductServiceImpls implements ProductService{
 
 	@Override
 	public List<ProductEntity> productsDiscover() {
-		
 		List<ProductEntity> products = productRepository.findTop2ByOrderByProductIdDesc();
-		return products;
+		products = this.deleteCategoryRecursive(products);
+		return transversalService.calculateFees(products);
 	}
 
 	
 	@Override
 	public List<ProductEntity> prueba() {
-		
 		return transversalService.calculateFees(productRepository.findAll());
+	}
+
+	@Override
+	public List<ProductEntity> deleteCategoryRecursive(List<ProductEntity> listProducts) {
+
+		listProducts.forEach( p -> {
+        	p.getCategoryProduct().setProducts(null);
+        	p.getPrecioCuota();
+        });
+		
+		return listProducts;
 	}
 	
 }

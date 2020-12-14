@@ -12,6 +12,7 @@ public interface ProductService {
 	public ProductEntity save(ProductEntity productGeneral);
 	public void deleteById(Long id);
 	public List<ProductEntity> productsDiscover();
+	public List<ProductEntity> deleteCategoryRecursive(List<ProductEntity> listProducts);
 	
 	public List<ProductEntity> prueba();
 	/*

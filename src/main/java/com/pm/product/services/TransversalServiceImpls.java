@@ -14,7 +14,8 @@ public class TransversalServiceImpls implements TransversalService {
 
 		listProduct.forEach( p-> {
 			// Se calcula la cantidad de cuotas segun su precio, luego es dividido el precio por la cuota para sacar el valor de cada cuota
-			p.setPrecioCuota(p.getProductUnitPrice() / (p.getProductUnitPrice() > 800000f ? 10 : 6));
+			p.setCuotas((p.getProductUnitPrice() > 800000f ? 10 : 6));
+			p.setPrecioCuota(p.getProductUnitPrice() / (p.getCuotas()));
 		});
 	
 		return listProduct;

@@ -58,12 +58,6 @@ public class ProductController {
         if(listProducts.isEmpty()) {
         	return new ResponseEntity<List<ProductEntity>>(listProducts, HttpStatus.NO_CONTENT);
         }
-
-        listProducts.forEach( p -> {
-        	p.getCategoryProduct().setProducts(null);
-        	p.getPrecioCuota();
-        	System.out.println(p.toString());
-        });
         
         return new ResponseEntity<List<ProductEntity>>(listProducts, HttpStatus.OK);
 	}
