@@ -3,6 +3,7 @@ package com.pm.product.services;
 import java.util.List;
 
 import com.pm.product.model.ProductEntity;
+import com.pm.product.model.ProductFlashOffert;
 
 public interface ProductService {
 	
@@ -14,7 +15,7 @@ public interface ProductService {
 	public List<ProductEntity> productsDiscover();
 	public List<ProductEntity> deleteCategoryRecursive(List<ProductEntity> listProducts);
 	
-	public List<ProductEntity> prueba();
+	public List<ProductFlashOffert> prueba();
 	/*
 	public List<ProductEntity> findByCategoryId(Long categoryId);
 	public List<ProductEntity> findByName(String name);

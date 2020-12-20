@@ -1,5 +1,6 @@
 package com.pm.product.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -37,12 +38,31 @@ public class CategoryProductEntity {
 	@Column(name = "catprod_name")
 	private String catProd_name;
 	
-	
 	@Column(name = "catprod_icon_url")
 	private String icon;
 	
 	@Column(name = "catprod_search_url")
 	private String searchUrl;
+	
+	@Column(name = "catprod_created")
+	private LocalDateTime catprod_created;
+	
+	public CategoryProductEntity(Long catProd_Id, List<ProductEntity> products, Integer catProd_SubCat_Id,
+			String catProd_name, String icon, String searchUrl, LocalDateTime catprod_created,
+			LocalDateTime catprod_updated) {
+		super();
+		this.catProd_Id = catProd_Id;
+		this.products = products;
+		this.catProd_SubCat_Id = catProd_SubCat_Id;
+		this.catProd_name = catProd_name;
+		this.icon = icon;
+		this.searchUrl = searchUrl;
+		this.catprod_created = catprod_created;
+		this.catprod_updated = catprod_updated;
+	}
+
+	@Column(name = "catprod_updated")
+	private LocalDateTime catprod_updated;
 	
 	//TODO: Crear modo para obtener las categorias mas compradas
 	
@@ -93,26 +113,27 @@ public class CategoryProductEntity {
 		this.products.add(product);
 	}
 	
-	public CategoryProductEntity(List<ProductEntity> products, Integer catProd_SubCat_Id,
-			String catProd_name, String icon, String searchUrl) {
-		super();
-		this.products = new ArrayList<ProductEntity>();
-		this.catProd_SubCat_Id = catProd_SubCat_Id;
-		this.catProd_name = catProd_name;
-		this.icon = icon;
-		this.searchUrl = searchUrl;
-	}
-
 	public CategoryProductEntity() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "CategoryProductEntity [catProd_Id=" + catProd_Id + ", products=" + products + ", catProd_SubCat_Id="
-				+ catProd_SubCat_Id + ", catProd_name=" + catProd_name + ", icon=" + icon + ", searchUrl=" + searchUrl
-				+ "]";
+	public LocalDateTime getCatprod_created() {
+		return catprod_created;
 	}
+
+	public void setCatprod_created(LocalDateTime catprod_created) {
+		this.catprod_created = catprod_created;
+	}
+
+	public LocalDateTime getCatprod_updated() {
+		return catprod_updated;
+	}
+
+	public void setCatprod_updated(LocalDateTime catprod_updated) {
+		this.catprod_updated = catprod_updated;
+	}
+
+
 
 
 

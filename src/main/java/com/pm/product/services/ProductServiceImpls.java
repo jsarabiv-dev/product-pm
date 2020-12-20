@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pm.product.dao.ProductDAOImpl;
+import com.pm.product.dao.repository.ProductFlashOffertRepository;
 import com.pm.product.dao.repository.ProductRepository;
 import com.pm.product.model.ProductEntity;
+import com.pm.product.model.ProductFlashOffert;
 
 
 
@@ -17,6 +19,9 @@ public class ProductServiceImpls implements ProductService{
 
 	@Autowired
 	ProductRepository productRepository;
+	
+	@Autowired
+	ProductFlashOffertRepository productFlashOffertRepository;
 	
 	@Autowired
 	ProductDAOImpl productDAO;
@@ -69,8 +74,8 @@ public class ProductServiceImpls implements ProductService{
 
 	
 	@Override
-	public List<ProductEntity> prueba() {
-		return transversalService.calculateFees(productRepository.findAll());
+	public List<ProductFlashOffert> prueba() {
+		return productFlashOffertRepository.findAll();
 	}
 
 	@Override

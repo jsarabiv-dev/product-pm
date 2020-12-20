@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pm.product.dao.ICategoryProductDAO;
 import com.pm.product.dao.repository.CategoryProductRepository;
 import com.pm.product.model.CategoryProductEntity;
 
@@ -14,6 +15,9 @@ public class CategoryProductServiceImpl implements CategoryProductService{
 
 	@Autowired
 	CategoryProductRepository categoryProductRepository;
+	
+	@Autowired
+	ICategoryProductDAO categoryProductDAO;
 	
 	@Override
 	public List<CategoryProductEntity> findAll() {
@@ -33,6 +37,12 @@ public class CategoryProductServiceImpl implements CategoryProductService{
 	@Override
 	public void deleteById(Long id) {
 		categoryProductRepository.deleteById(id);
+	}
+
+	@Override
+	public List<CategoryProductEntity> discover() {
+		// TODO Auto-generated method stub
+		return categoryProductDAO.discover();
 	}
 
 }

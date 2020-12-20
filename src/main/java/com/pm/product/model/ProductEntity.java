@@ -29,7 +29,7 @@ public class ProductEntity {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name ="product_catprod_id")
 	private CategoryProductEntity categoryProduct;
-	
+
 	@Column(name = "product_name")
 	private String productName;
 	
@@ -198,6 +198,14 @@ public class ProductEntity {
 
 	public void setCuotas(int cuotas) {
 		this.cuotas = cuotas;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	@Override

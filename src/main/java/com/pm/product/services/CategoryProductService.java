@@ -12,5 +12,6 @@ public interface CategoryProductService {
 	public CategoryProductEntity findById(Long id);
 	public CategoryProductEntity save(CategoryProductEntity category);
 	public void deleteById(Long id);
+	public List<CategoryProductEntity> discover();
 
 }

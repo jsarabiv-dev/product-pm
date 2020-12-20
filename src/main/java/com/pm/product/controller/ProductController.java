@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pm.product.model.ProductEntity;
+import com.pm.product.model.ProductFlashOffert;
 import com.pm.product.services.ProductService;
 
 @RestController
@@ -32,13 +33,13 @@ public class ProductController {
 	
 	
 	@GetMapping("/prueba")
-	public ResponseEntity<List<ProductEntity>>prueba(){
+	public ResponseEntity<List<ProductFlashOffert>>prueba(){
 	
-		List<ProductEntity> listProducts = productService.prueba();
+		List<ProductFlashOffert> listProducts = productService.prueba();
         if(listProducts.isEmpty()) {
-        	return new ResponseEntity<List<ProductEntity>>(listProducts, HttpStatus.NO_CONTENT);
+        	return new ResponseEntity<List<ProductFlashOffert>>(listProducts, HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<ProductEntity>>(listProducts, HttpStatus.OK);
+        return new ResponseEntity<List<ProductFlashOffert>>(listProducts, HttpStatus.OK);
 	}
 	
 	

@@ -5,8 +5,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -14,57 +18,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pm.product.dao.repository.CategoryProductRepository;
+import com.pm.product.dao.repository.ProductFlashOffertRepository;
 import com.pm.product.model.CategoryProductEntity;
 import com.pm.product.model.ProductEntity;
+import com.pm.product.model.ProductFlashOffert;
 
 @Repository
-public class CategoryProductDAOImpl implements ICategoryProductDAO{
+public class ProductFlashOffertDAOImpl implements IProductFlashOffertDAO {
 
 	@Autowired
-	private CategoryProductRepository categoryProductRepository;
-	
+	ProductFlashOffertRepository productFlashOffertRepository;
+
 	@PersistenceContext
 	private EntityManager em;
-	
-	public List<ProductEntity> prueba() {
-		
-		
-		return null;
-	}
-	
-	@Override	
-	public List<CategoryProductEntity> discover() {
+/*	
+	@Override
+	public List<ProductFlashOffert> findByProductCategory() {
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<CategoryProductEntity> cq = cb.createQuery(CategoryProductEntity.class);
-		Root<CategoryProductEntity> from = cq.from(CategoryProductEntity.class);
-		cq.orderBy(cb.asc(from.get("catprod_created")));
-		return em.createQuery(cq).setMaxResults(8).getResultList();
-		}
+		
+		CriteriaQuery<ProductFlashOffert> query = cb.createQuery(ProductFlashOffert.class);
+		Root<ProductFlashOffert> root = query.from(ProductFlashOffert.class);
 	
+
+		return null;
+	}
+*/
+	
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -38,6 +38,18 @@ public class CategoryProductController {
         return new ResponseEntity<List<CategoryProductEntity>>(listProducts, HttpStatus.OK);
 	}
 	
+	
+	@GetMapping("/discover")
+	public ResponseEntity<List<CategoryProductEntity>>discoverCatgories(){
+		List<CategoryProductEntity> listProducts = categoryProductService.discover();
+        if(listProducts.isEmpty()) {
+        	return new ResponseEntity<List<CategoryProductEntity>>(listProducts, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<CategoryProductEntity>>(listProducts, HttpStatus.OK);
+	}
+	
+	
+	
 	@GetMapping("/find/{id}")
 	public ResponseEntity<?> finByIdl(@PathVariable Long id){
 		CategoryProductEntity categoryProduct = null;
